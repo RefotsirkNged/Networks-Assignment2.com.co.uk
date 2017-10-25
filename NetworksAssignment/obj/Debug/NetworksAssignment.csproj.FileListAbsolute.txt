@@ -1,0 +1,8 @@
+c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignment\NetworksAssignment\bin\Debug\NetworksAssignment.exe.config
+c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignment\NetworksAssignment\bin\Debug\NetworksAssignment.exe
+c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignment\NetworksAssignment\bin\Debug\NetworksAssignment.pdb
+c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignment\NetworksAssignment\bin\Debug\MathNet.Numerics.dll
+c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignment\NetworksAssignment\bin\Debug\MathNet.Numerics.xml
+c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignment\NetworksAssignment\obj\Debug\NetworksAssignment.csprojResolveAssemblyReference.cache
+c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignment\NetworksAssignment\obj\Debug\NetworksAssignment.exe
+c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignment\NetworksAssignment\obj\Debug\NetworksAssignment.pdb

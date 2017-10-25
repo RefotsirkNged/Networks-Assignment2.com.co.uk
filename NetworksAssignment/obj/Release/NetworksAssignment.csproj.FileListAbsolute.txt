@@ -1,0 +1,12 @@
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Release\x64\libiomp5md.dll
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Release\x64\MathNet.Numerics.MKL.dll
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Release\x86\libiomp5md.dll
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Release\x86\MathNet.Numerics.MKL.dll
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Release\NetworksAssignment.exe.config
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Release\NetworksAssignment.exe
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Release\NetworksAssignment.pdb
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Release\MathNet.Numerics.dll
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Release\MathNet.Numerics.xml
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Release\NetworksAssignment.csproj.CoreCompileInputs.cache
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Release\NetworksAssignment.exe
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Release\NetworksAssignment.pdb

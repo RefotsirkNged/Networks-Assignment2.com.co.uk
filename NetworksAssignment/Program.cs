@@ -38,11 +38,51 @@ namespace NetworksAssignment
 
             eigenVectorMapping = eigenVectorMapping.OrderBy(t => t.Item2).ToList();
 
-            foreach (Tuple<int, double> value in eigenVectorMapping)
+            //foreach (Tuple<int, double> value in eigenVectorMapping)
+            //{
+            //    Console.WriteLine(value.Item1 + ": " + value.Item2);
+            //}
+
+            List<int> cuts = new List<int>();
+
+            for (int i = 0; i < eigenVectorMapping.Count; i++)
             {
-                Console.WriteLine(value.Item1 + ": " + value.Item2);
+                if(i < eigenVectorMapping.Count - 1)
+                {
+                    if (((eigenVectorMapping[i + 1].Item2 - eigenVectorMapping[i].Item2) / eigenVectorMapping[i].Item2) * 100 >= 30)
+                    {
+                        Console.WriteLine("Cut: " + i);
+                        cuts.Add(i);
+                    }
+                }
             }
 
+            List<List<int>> communities = new List<List<int>>();
+
+            int j = 0;
+            foreach (int index in cuts)
+            {
+                communities.Add(new List<int>());
+
+                for (int i = j; i < index; i++)
+                {
+                    communities.Last().Add(eigenVectorMapping[i].Item1);
+                }
+
+                j = index;
+            }
+
+            communities.Add(new List<int>());
+
+            for (int i = j; i < eigenVectorMapping.Count; i++)
+            {
+                communities.Last().Add(eigenVectorMapping[i].Item1);
+            }
+
+            foreach (List<int> c in communities)
+            {
+                Console.WriteLine(c.Count);
+            }
 
             Console.ReadLine();
         }

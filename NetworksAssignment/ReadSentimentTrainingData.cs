@@ -33,6 +33,11 @@ namespace ConsoleApplication1
             }
         }
 
+        public static List<Review> readFileAsReview(string filePath)
+        {
+            return ConvertDataToReview.convertSentimentDataToReview(readFile(filePath));
+        }
+
         public static List<SentimentDataType> readFile(string filePath)
         {
             try

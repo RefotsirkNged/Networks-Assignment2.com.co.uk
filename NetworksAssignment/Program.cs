@@ -15,9 +15,16 @@ namespace NetworksAssignment
     {
         static void Main(string[] args)
         {
+            
+
+            Console.ReadLine();
+        }
+
+        private static void FindCommunities()
+        {
             MatrixGenerator mg = new MatrixGenerator();
             List<Tuple<int, double>> eigenVectorMapping = new List<Tuple<int, double>>();
-            
+
             Matrix<double> AdjacencyArray = DenseMatrix.OfArray(mg.GetAdjancencyMatrix());
             Matrix<double> DegreeArray = DenseMatrix.OfArray(mg.GetDegreeMatrix());
 
@@ -37,17 +44,13 @@ namespace NetworksAssignment
             }
 
             eigenVectorMapping = eigenVectorMapping.OrderBy(t => t.Item2).ToList();
-
-            //foreach (Tuple<int, double> value in eigenVectorMapping)
-            //{
-            //    Console.WriteLine(value.Item1 + ": " + value.Item2);
-            //}
+            
 
             List<int> cuts = new List<int>();
 
             for (int i = 0; i < eigenVectorMapping.Count; i++)
             {
-                if(i < eigenVectorMapping.Count - 1)
+                if (i < eigenVectorMapping.Count - 1)
                 {
                     if (((eigenVectorMapping[i + 1].Item2 - eigenVectorMapping[i].Item2) / eigenVectorMapping[i].Item2) * 100 >= 30)
                     {
@@ -83,8 +86,6 @@ namespace NetworksAssignment
             {
                 Console.WriteLine(c.Count);
             }
-
-            Console.ReadLine();
         }
     }
 }

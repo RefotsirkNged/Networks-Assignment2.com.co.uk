@@ -124,5 +124,11 @@ namespace NetworksAssignment
             }
             return result;
         }
+
+        public static List<string> TokenizeNoTags(string text)
+        {
+            EnglishRuleBasedTokenizer opennlpTokenizer = new EnglishRuleBasedTokenizer(false);
+            return opennlpTokenizer.Tokenize(text).ToList();
+        }
     }
 }

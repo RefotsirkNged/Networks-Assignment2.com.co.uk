@@ -64,4 +64,5 @@ $RECYCLE.BIN/
 
 
 *.vs
-bin/
+*/*/Debug
+*.swp

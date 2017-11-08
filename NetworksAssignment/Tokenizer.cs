@@ -14,7 +14,7 @@ namespace NetworksAssignment
         /// </summary>
         /// <param name="text">some text, probably a review</param>
         /// <returns>returns a list of tags with their respective tokens</returns>
-        public List<Tuple<string, List<string>>> TokenizeText(string text)
+        public static List<Tuple<string, List<string>>> TokenizeText(string text)
         {
             if (text == string.Empty) return null; //if the input is empty well shit
             EnglishRuleBasedTokenizer opennlpTokenizer = new EnglishRuleBasedTokenizer(false);

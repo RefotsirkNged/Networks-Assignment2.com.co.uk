@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetworksAssignment;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace ConsoleApplication1
                     temp.sentiment = Review.Sentiment.positive;
                 temp.review = text;
                 temp.user = userID;
+                temp.tokens = Tokenizer.TokenizeText(temp.review).Select(t => t.Item1).ToList();
                 return temp;
             }
         }

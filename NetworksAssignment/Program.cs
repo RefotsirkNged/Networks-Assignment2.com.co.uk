@@ -18,7 +18,7 @@ namespace NetworksAssignment
         {
 
             
-            SentimentModel model = new SentimentModel(ReadSentimentTrainingData);
+            SentimentModel model = new SentimentModel(ReadSentimentTrainingData.readFileAsReview("small.txt"));
 
             Console.ReadLine();
         }

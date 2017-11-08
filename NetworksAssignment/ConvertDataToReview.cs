@@ -12,9 +12,9 @@ namespace ConsoleApplication1
         {
             List<Review> newReviewList = new List<Review>();
 
-            foreach(ReadSentimentTrainingData.SentimentDataType elm in dataList)
+            foreach(ReadSentimentTrainingData.SentimentDataType element in dataList)
             {
-                newReviewList.Add(elm.getReview());
+                newReviewList.Add(element.getReview());
             }
 
             return newReviewList;

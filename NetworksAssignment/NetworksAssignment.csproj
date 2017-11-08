@@ -56,7 +56,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadSentimentTrainingData.cs" />
     <Compile Include="Review.cs" />
+<<<<<<< HEAD
     <Compile Include="SentimentModel.cs" />
+=======
+>>>>>>> parent of fa24d99... tokns
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

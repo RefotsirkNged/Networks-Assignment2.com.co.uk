@@ -22,6 +22,3 @@ C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAss
 C:\Users\asease1\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.exe.config
 C:\Users\asease1\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
 C:\Users\asease1\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
-C:\Users\krist\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.exe.config
-C:\Users\krist\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
-C:\Users\krist\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb

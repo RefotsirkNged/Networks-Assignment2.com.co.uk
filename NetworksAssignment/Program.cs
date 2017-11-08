@@ -9,6 +9,7 @@ using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 using MathNet.Numerics.LinearAlgebra.Factorization;
 using ConsoleApplication1;
+using System.IO;
 
 namespace NetworksAssignment
 {
@@ -16,11 +17,18 @@ namespace NetworksAssignment
     {
         static void Main(string[] args)
         {
+            SentimentModel model = new SentimentModel(ReadSentimentTrainingData.readFileAsReview("SentimentTrainingData.txt"));
+
+            FileStream brain = File.Create("brain.json");
+            
+
+            using (System.IO.StreamWriter file =
+           new System.IO.StreamWriter(brain))
+            {
+                file.Write(model.vocabulary.JSONSerialize());
+            }
 
             
-            SentimentModel model = new SentimentModel(ReadSentimentTrainingData.readFileAsReview("small.txt"));
-
-            Console.ReadLine();
         }
 
         private static void FindCommunities()
@@ -47,7 +55,7 @@ namespace NetworksAssignment
             }
 
             eigenVectorMapping = eigenVectorMapping.OrderBy(t => t.Item2).ToList();
-            
+
 
             List<int> cuts = new List<int>();
 

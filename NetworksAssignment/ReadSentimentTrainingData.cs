@@ -24,13 +24,13 @@ namespace ConsoleApplication1
             public Review getReview()
             {
                 Review temp = new Review();
-                if (score <= 2)
+                if (score <= 20)
                     temp.sentiment = Review.Sentiment.negative;
-                else if (score >= 4)
+                else if (score >= 40)
                     temp.sentiment = Review.Sentiment.positive;
                 temp.review = text;
                 temp.user = userID;
-                temp.tokens = Tokenizer.TokenizeText(temp.review).Select(t => t.Item1).ToList();
+                temp.tokens = Tokenizer.TokenizeNoTags(temp.review);
                 return temp;
             }
         }

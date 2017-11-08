@@ -27,3 +27,4 @@ C:\Users\krist\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\Netwo
 C:\Users\krist\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
 C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\OpenNLP.dll
 C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\SharpEntropy.dll
+C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\Newtonsoft.Json.dll

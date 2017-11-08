@@ -1,4 +1,5 @@
 ﻿using ConsoleApplication1;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,26 @@ namespace NetworksAssignment
 
         }
 
-        class TokenModel
+        
+        public class TokenSeializable
+        {
+            public string token;
+            public int NofXNEG;
+            public int NofXPOS;
+            public double probabilityNEG;
+            public double probabilityPOS;
+
+            public TokenSeializable(string token, int NofXNEG, int NofXPOS, double probabilityNEG, double probabilityPOS)
+            {
+                this.token = token;
+                this.NofXNEG = NofXNEG;
+                this.NofXPOS = NofXPOS;
+                this.probabilityNEG = probabilityNEG;
+                this.probabilityPOS = probabilityPOS;
+            }
+        }
+
+        public class TokenModel
         {
             public string token;
 
@@ -22,8 +42,11 @@ namespace NetworksAssignment
 
             public int NofXPOS;
 
-            public TokenModel()
+            
+
+            public TokenModel(string token)
             {
+                this.token = token;
                 NofXNEG = 0;
 
                 NofXPOS = 0;
@@ -31,12 +54,12 @@ namespace NetworksAssignment
 
             public double probabilityNEG(int amountNEGReviews)
             {
-                return NofXNEG / amountNEGReviews;
+                return (double)NofXNEG / (double)amountNEGReviews;
             }
 
             public double probabilityPOS(int amountPOSReviews)
             {
-                return NofXPOS / amountPOSReviews;
+                return (double)NofXPOS / (double)amountPOSReviews;
             }
 
             public double notXProbabilityNEG(int amountNEGReviews)
@@ -50,13 +73,33 @@ namespace NetworksAssignment
             }
         }
 
-        class Vocabulary
+        public class Vocabulary
         {
-            List<TokenModel> tokens;
+            private List<TokenModel> _tokens = new List<TokenModel>();
+            public List<TokenSeializable> tokens;
+            public int amountNEGReviews;
+            public int amountPOSReviews;
+
+            public string JSONSerialize()
+            {
+                List<TokenSeializable> sTokens = new List<TokenSeializable>();
+
+                foreach (TokenModel t in _tokens)
+                {
+                    sTokens.Add(new TokenSeializable(t.token, t.NofXNEG, t.NofXPOS, t.probabilityNEG(amountNEGReviews), t.probabilityPOS(amountPOSReviews)));
+                }
+
+                return JsonConvert.SerializeObject(sTokens);
+            }
+
+            public void JSONDeserialize(string json)
+            {
+                tokens = (List<TokenSeializable>)JsonConvert.DeserializeObject(json);
+            }
 
             public bool Contains(string token)
             {
-                foreach (TokenModel tokenModel in tokens)
+                foreach (TokenModel tokenModel in _tokens)
                 {
                     if (tokenModel.token == token)
                         return true;
@@ -65,13 +108,15 @@ namespace NetworksAssignment
                 return false;
             }
 
-            public void Add(string token, Review review)
+            internal void Add(string token, Review review)
             {
                 TokenModel tokenModel = Get(token);
                 if (tokenModel == null)
                 {
-                    tokenModel = new TokenModel();
+                    tokenModel = new TokenModel(token);
                 }
+
+                _tokens.Add(tokenModel);
 
                 switch (review.sentiment)
                 {
@@ -88,7 +133,7 @@ namespace NetworksAssignment
 
             public TokenModel Get(string token)
             {
-                foreach (TokenModel t in tokens)
+                foreach (TokenModel t in _tokens)
                 {
                     if (t.token == token)
                         return t;
@@ -98,30 +143,31 @@ namespace NetworksAssignment
             }
         }
 
-        private Vocabulary vocabulary;
+        public Vocabulary vocabulary;
         private List<Review> reviews;
 
-        private int amountNEGReviews;
-        private int amountPOSReviews;
+        
 
         private double SOfEmptyNEG;
         private double SOfEmptyPOS;
 
         public SentimentModel(List<Review> reviews)
         {
+            vocabulary = new Vocabulary();
             this.reviews = reviews;
-            amountNEGReviews = 0;
-            amountPOSReviews = 0;
+            vocabulary.amountNEGReviews = 0;
+            vocabulary.amountPOSReviews = 0;
+            
 
             foreach (Review review in this.reviews)
             {
                 switch (review.sentiment)
                 {
                     case Review.Sentiment.positive:
-                        amountNEGReviews++;
-                        amountPOSReviews++;
+                        vocabulary.amountPOSReviews++;
                         break;
                     case Review.Sentiment.negative:
+                        vocabulary.amountNEGReviews++;
                         break;
                     default:
                         break;
@@ -136,11 +182,18 @@ namespace NetworksAssignment
         {
             foreach (string token in review.tokens)
             {
-                if (!vocabulary.Contains(token))
-                {
-                    vocabulary.Add(token, review);
-                }
+                vocabulary.Add(token, review);
             }
+        }
+
+        public double GetProbabilityNEG(string token)
+        {
+            return vocabulary.Get(token).probabilityPOS(vocabulary.amountNEGReviews);
+        }
+
+        public double GetProbabilityPOS(string token)
+        {
+            return vocabulary.Get(token).probabilityPOS(vocabulary.amountPOSReviews);
         }
     }
 }

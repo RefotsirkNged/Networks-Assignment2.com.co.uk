@@ -10,6 +10,7 @@ namespace ConsoleApplication1
     {
         public string review;
         public string user;
+        public List<string> tokens;
         public Sentiment sentiment;
         public enum Sentiment { positive, negative}
     }

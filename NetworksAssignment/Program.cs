@@ -8,6 +8,7 @@ using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 using MathNet.Numerics.LinearAlgebra.Factorization;
+using ConsoleApplication1;
 
 namespace NetworksAssignment
 {
@@ -15,7 +16,9 @@ namespace NetworksAssignment
     {
         static void Main(string[] args)
         {
+
             
+            SentimentModel model = new SentimentModel(ReadSentimentTrainingData);
 
             Console.ReadLine();
         }

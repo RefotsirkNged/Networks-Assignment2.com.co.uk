@@ -12,6 +12,6 @@ namespace ConsoleApplication1
         public string user;
         public List<string> tokens;
         public Sentiment sentiment;
-        public enum Sentiment { positive, negative}
+        public enum Sentiment {blank, positive, negative}
     }
 }

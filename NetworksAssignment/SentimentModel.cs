@@ -20,12 +20,14 @@ namespace NetworksAssignment
 
             internal double GetNegProbabililty(string token)
             {
-                return (tokens.ContainsKey(token) ? tokens[token].probabilityNEG : 1);
+                double result = (tokens.ContainsKey(token) ? tokens[token].probabilityNEG : 1);
+                return result;
             }
 
             internal double GetPosProbability(string token)
             {
-                return (tokens.ContainsKey(token) ? tokens[token].probabilityPOS : 1);
+                double result = (tokens.ContainsKey(token) ? tokens[token].probabilityPOS : 1);
+                return result;
             }
         }
 
@@ -229,6 +231,9 @@ namespace NetworksAssignment
         {
             double probabilityPos = 1;
             double probabilityNeg = 1;
+
+            if (review.tokens.Count == 0)
+                return review;
 
             foreach (string token in review.tokens)
             {

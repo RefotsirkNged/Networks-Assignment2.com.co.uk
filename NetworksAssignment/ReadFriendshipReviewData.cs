@@ -29,6 +29,8 @@ namespace NetworksAssignment
                 {
                     temp.tokens = Tokenizer.SplitString(review);
                 }
+                else
+                    temp.tokens = new List<string>();
                 temp.user = userID;
                 temp.review = review;
                 return temp;

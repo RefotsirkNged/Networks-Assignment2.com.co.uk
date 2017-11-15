@@ -32,7 +32,7 @@ namespace NetworksAssignment
                 else
                     temp.tokens = new List<string>();
                 temp.user = userID;
-                temp.review = review;
+                temp.review = review.ToLower();
                 return temp;
             }
         }

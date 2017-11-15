@@ -28,7 +28,7 @@ namespace ConsoleApplication1
                     temp.sentiment = Review.Sentiment.negative;
                 else if (score >= 40)
                     temp.sentiment = Review.Sentiment.positive;
-                temp.review = text;
+                temp.review = text.ToLower();
                 temp.user = userID;
                 temp.tokens = Tokenizer.SplitString(temp.review);
                 return temp;

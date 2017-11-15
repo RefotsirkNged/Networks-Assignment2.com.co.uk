@@ -12,11 +12,21 @@ namespace NetworksAssignment
     {
         public class VocabularySerializable
         {
-            public List<TokenSeializable> tokens;
+            public Dictionary<string, TokenSeializable> tokens;
             public int amountNEGReviews;
             public int amountPOSReviews;
             public double SOfEmptyNEG;
             public double SOfEmptyPOS;
+
+            internal double GetNegProbabililty(string token)
+            {
+                return tokens[token].probabilityNEG;
+            }
+
+            internal double GetPosProbability(string token)
+            {
+                return tokens[token].probabilityPOS;
+            }
         }
 
         public static VocabularySerializable Dezerialize(string json)
@@ -126,12 +136,12 @@ namespace NetworksAssignment
 
             public string JSONSerialize()
             {
-                List<TokenSeializable> sTokens = new List<TokenSeializable>();
+                Dictionary<string, TokenSeializable> sTokens = new Dictionary<string, TokenSeializable>();
                 VocabularySerializable sVocabulary = new VocabularySerializable();
 
                 foreach (TokenModel t in _tokens.Values)
                 {
-                    sTokens.Add(new TokenSeializable(t.token, t.NofXNEG, t.NofXPOS, t.probabilityNEG(amountNEGReviews, _tokens.Count), t.probabilityPOS(amountPOSReviews, _tokens.Count)));
+                    sTokens.Add(t.token, new TokenSeializable(t.token, t.NofXNEG, t.NofXPOS, t.probabilityNEG(amountNEGReviews, _tokens.Count), t.probabilityPOS(amountPOSReviews, _tokens.Count)));
                 }
 
                 sVocabulary.amountNEGReviews = amountNEGReviews;
@@ -178,7 +188,7 @@ namespace NetworksAssignment
 
         public Vocabulary vocabulary;
         private List<Review> reviews;
-        
+        private VocabularySerializable sVocabulary;
 
         public SentimentModel(List<Review> reviews)
         {
@@ -211,16 +221,32 @@ namespace NetworksAssignment
 
         public SentimentModel(string JSON)
         {
-            VocabularySerializable sVocabulary = Dezerialize(JSON);
+            sVocabulary = Dezerialize(JSON);
             
         }
 
         public Review AnalyseReview(Review review)
         {
-            double probabilityPos = 0;
-            double probabilityNeg = 0;
+            double probabilityPos = 1;
+            double probabilityNeg = 1;
 
-            
+            foreach (string token in review.tokens)
+            {
+                probabilityNeg = probabilityNeg * sVocabulary.GetNegProbabililty(token);
+                probabilityPos = probabilityPos * sVocabulary.GetPosProbability(token);
+            }
+
+            probabilityNeg = probabilityNeg * sVocabulary.SOfEmptyNEG;
+            probabilityPos = probabilityPos * sVocabulary.SOfEmptyPOS;
+
+            if (probabilityPos > probabilityNeg)
+            {
+                review.sentiment = Review.Sentiment.positive;
+            }
+            else
+            {
+                review.sentiment = Review.Sentiment.negative;
+            }
 
             return review;
         }

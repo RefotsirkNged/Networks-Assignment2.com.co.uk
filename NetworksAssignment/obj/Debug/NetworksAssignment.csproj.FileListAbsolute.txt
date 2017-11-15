@@ -6,25 +6,9 @@ c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignmen
 c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignment\NetworksAssignment\obj\Debug\NetworksAssignment.csprojResolveAssemblyReference.cache
 c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignment\NetworksAssignment\obj\Debug\NetworksAssignment.exe
 c:\users\krist\onedrive\dokumenter\visual studio 2015\Projects\NetworksAssignment\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x64\libiomp5md.dll
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x64\MathNet.Numerics.MKL.dll
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x86\libiomp5md.dll
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x86\MathNet.Numerics.MKL.dll
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.exe.config
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.exe
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.pdb
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\MathNet.Numerics.dll
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\MathNet.Numerics.xml
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.csproj.CoreCompileInputs.cache
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.csprojResolveAssemblyReference.cache
 C:\Users\asease1\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.exe.config
 C:\Users\asease1\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
 C:\Users\asease1\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
 C:\Users\krist\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.exe.config
 C:\Users\krist\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
 C:\Users\krist\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\OpenNLP.dll
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\SharpEntropy.dll
-C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\Newtonsoft.Json.dll

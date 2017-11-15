@@ -30,7 +30,7 @@ namespace ConsoleApplication1
                     temp.sentiment = Review.Sentiment.positive;
                 temp.review = text;
                 temp.user = userID;
-                temp.tokens = Tokenizer.TokenizeNoTags(temp.review);
+                temp.tokens = Tokenizer.SplitString(temp.review);
                 return temp;
             }
         }

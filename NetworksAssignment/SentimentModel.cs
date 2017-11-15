@@ -10,11 +10,19 @@ namespace NetworksAssignment
 {
     class SentimentModel
     {
-        class _ReviewSentiment
+        public class VocabularySerializable
         {
-
+            public List<TokenSeializable> tokens;
+            public int amountNEGReviews;
+            public int amountPOSReviews;
+            public double SOfEmptyNEG;
+            public double SOfEmptyPOS;
         }
 
+        public static VocabularySerializable Dezerialize(string json)
+        {
+            return JsonConvert.DeserializeObject<VocabularySerializable>(json);
+        }
         
         public class TokenSeializable
         {
@@ -52,60 +60,92 @@ namespace NetworksAssignment
                 NofXPOS = 0;
             }
 
-            public double probabilityNEG(int amountNEGReviews)
+            public double probabilityNEG(int amountNEGReviews, int vocabularySize)
             {
-                return (double)NofXNEG / (double)amountNEGReviews;
+                return (double)(NofXNEG + 1) / (double)(amountNEGReviews + vocabularySize);
             }
 
-            public double probabilityPOS(int amountPOSReviews)
+            public double probabilityPOS(int amountPOSReviews, int vocabularySize)
             {
-                return (double)NofXPOS / (double)amountPOSReviews;
+                return (double)(NofXPOS + 1) / (double)(amountPOSReviews + vocabularySize);
             }
 
-            public double notXProbabilityNEG(int amountNEGReviews)
+            public double notXProbabilityNEG(int amountNEGReviews, int vocabularySize)
             {
-                return 1 - probabilityNEG(amountNEGReviews);
+                return 1 - probabilityNEG(amountNEGReviews, vocabularySize);
             }
 
-            public double notXProbabilityPOS(int amountPOSReviews)
+            public double notXProbabilityPOS(int amountPOSReviews, int vocabularySize)
             {
-                return 1 - probabilityPOS(amountPOSReviews);
+                return 1 - probabilityPOS(amountPOSReviews, vocabularySize);
             }
         }
 
         public class Vocabulary
         {
-            private List<TokenModel> _tokens = new List<TokenModel>();
+            private Dictionary<string, TokenModel> _tokens = new Dictionary<string, TokenModel>();
             public List<TokenSeializable> tokens;
             public int amountNEGReviews;
             public int amountPOSReviews;
 
+            private double SOfEmptyPOS
+            {
+                get
+                {
+                    double sum = 1;
+                    foreach (TokenModel t in _tokens.Values)
+                    {
+                        sum = sum * t.notXProbabilityPOS(amountPOSReviews, size);
+                    }
+
+                    return (double)(sum * ((double)amountPOSReviews / (double)size));
+                }
+            }
+
+            private double SOfEmptyNEG
+            {
+                get
+                {
+                    double sum = 1;
+                    foreach (TokenModel t in _tokens.Values)
+                    {
+                        sum = sum * t.notXProbabilityNEG(amountNEGReviews, size);
+                    }
+
+                    return (double)(sum * ((double)amountNEGReviews / (double)size));
+                }
+            }
+
+            public int size
+            {
+                get
+                {
+                    return _tokens.Count;
+                }
+            }
+
             public string JSONSerialize()
             {
                 List<TokenSeializable> sTokens = new List<TokenSeializable>();
+                VocabularySerializable sVocabulary = new VocabularySerializable();
 
-                foreach (TokenModel t in _tokens)
+                foreach (TokenModel t in _tokens.Values)
                 {
-                    sTokens.Add(new TokenSeializable(t.token, t.NofXNEG, t.NofXPOS, t.probabilityNEG(amountNEGReviews), t.probabilityPOS(amountPOSReviews)));
+                    sTokens.Add(new TokenSeializable(t.token, t.NofXNEG, t.NofXPOS, t.probabilityNEG(amountNEGReviews, _tokens.Count), t.probabilityPOS(amountPOSReviews, _tokens.Count)));
                 }
 
-                return JsonConvert.SerializeObject(sTokens);
-            }
+                sVocabulary.amountNEGReviews = amountNEGReviews;
+                sVocabulary.amountPOSReviews = amountPOSReviews;
+                sVocabulary.SOfEmptyNEG = SOfEmptyNEG;
+                sVocabulary.SOfEmptyPOS = SOfEmptyPOS;
+                sVocabulary.tokens = sTokens;
 
-            public void JSONDeserialize(string json)
-            {
-                tokens = (List<TokenSeializable>)JsonConvert.DeserializeObject(json);
+                return JsonConvert.SerializeObject(sVocabulary);
             }
 
             public bool Contains(string token)
             {
-                foreach (TokenModel tokenModel in _tokens)
-                {
-                    if (tokenModel.token == token)
-                        return true;
-                }
-
-                return false;
+                return _tokens.ContainsKey(token);
             }
 
             internal void Add(string token, Review review)
@@ -114,9 +154,8 @@ namespace NetworksAssignment
                 if (tokenModel == null)
                 {
                     tokenModel = new TokenModel(token);
+                    _tokens[token] = tokenModel;
                 }
-
-                _tokens.Add(tokenModel);
 
                 switch (review.sentiment)
                 {
@@ -133,23 +172,13 @@ namespace NetworksAssignment
 
             public TokenModel Get(string token)
             {
-                foreach (TokenModel t in _tokens)
-                {
-                    if (t.token == token)
-                        return t;
-                }
-
-                return null;
+                return (_tokens.ContainsKey(token) ? _tokens[token] : null);
             }
         }
 
         public Vocabulary vocabulary;
         private List<Review> reviews;
-
         
-
-        private double SOfEmptyNEG;
-        private double SOfEmptyPOS;
 
         public SentimentModel(List<Review> reviews)
         {
@@ -161,22 +190,40 @@ namespace NetworksAssignment
 
             foreach (Review review in this.reviews)
             {
-                switch (review.sentiment)
+                if (review != null)
                 {
-                    case Review.Sentiment.positive:
-                        vocabulary.amountPOSReviews++;
-                        break;
-                    case Review.Sentiment.negative:
-                        vocabulary.amountNEGReviews++;
-                        break;
-                    default:
-                        break;
-                }
+                    switch (review.sentiment)
+                    {
+                        case Review.Sentiment.positive:
+                            vocabulary.amountPOSReviews++;
+                            break;
+                        case Review.Sentiment.negative:
+                            vocabulary.amountNEGReviews++;
+                            break;
+                        default:
+                            break;
+                    }
 
-                AddReviewToVocabulary(review);
+                    AddReviewToVocabulary(review);
+                }
             }
         }
 
+        public SentimentModel(string JSON)
+        {
+            VocabularySerializable sVocabulary = Dezerialize(JSON);
+            
+        }
+
+        public Review AnalyseReview(Review review)
+        {
+            double probabilityPos = 0;
+            double probabilityNeg = 0;
+
+            
+
+            return review;
+        }
 
         private void AddReviewToVocabulary(Review review)
         {
@@ -188,12 +235,12 @@ namespace NetworksAssignment
 
         public double GetProbabilityNEG(string token)
         {
-            return vocabulary.Get(token).probabilityPOS(vocabulary.amountNEGReviews);
+            return vocabulary.Get(token).probabilityPOS(vocabulary.amountNEGReviews, vocabulary.size);
         }
 
         public double GetProbabilityPOS(string token)
         {
-            return vocabulary.Get(token).probabilityPOS(vocabulary.amountPOSReviews);
+            return vocabulary.Get(token).probabilityPOS(vocabulary.amountPOSReviews, vocabulary.size);
         }
     }
 }

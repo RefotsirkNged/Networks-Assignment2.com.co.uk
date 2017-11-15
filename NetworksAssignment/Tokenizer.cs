@@ -130,5 +130,14 @@ namespace NetworksAssignment
             EnglishRuleBasedTokenizer opennlpTokenizer = new EnglishRuleBasedTokenizer(false);
             return opennlpTokenizer.Tokenize(text).ToList();
         }
+
+        public static List<string> SplitString(string text)
+        {
+            List<string> result = new List<string>();
+            char[] replaceChars = new char[] {',', '.', ':', ';'};
+
+            result = text.Replace(",", " ").Replace(".", " ").Replace(";", " ").Replace(":", " ").Replace("\n", " ").Split(' ').Where(s => s != string.Empty).ToList();
+            return result;
+        }
     }
 }

@@ -17,18 +17,59 @@ namespace NetworksAssignment
     {
         static void Main(string[] args)
         {
+            bool done = false;
+            while (true)
+            {
+                
+                Console.WriteLine("What do you want to do:");
+                Console.WriteLine("1: Train from file");
+                Console.WriteLine("2: Analyse file");
+                Console.WriteLine("0: Exit");
+
+                string answer = Console.ReadLine();
+
+                switch (answer)
+                {
+                    case "0":
+                        done = true;
+                        break;
+                    case "1":
+                        Console.WriteLine("Training...");
+                        Train();
+                        Console.WriteLine("Done!");
+                        break;
+                    case "2":
+                        Console.WriteLine("Analysing...");
+                        Analyse();
+                        Console.WriteLine("Done!");
+                        break;
+                    default:
+                        break;
+                }
+
+                if (done)
+                    break;
+            }
+
+            
+        }
+
+        private static void Analyse()
+        {
+            SentimentModel model = new SentimentModel(File.ReadAllText("brain.json"));
+        }
+
+        private static void Train()
+        {
             SentimentModel model = new SentimentModel(ReadSentimentTrainingData.readFileAsReview("SentimentTrainingData.txt"));
 
             FileStream brain = File.Create("brain.json");
-            
 
             using (System.IO.StreamWriter file =
            new System.IO.StreamWriter(brain))
             {
                 file.Write(model.vocabulary.JSONSerialize());
             }
-
-            
         }
 
         private static void FindCommunities()

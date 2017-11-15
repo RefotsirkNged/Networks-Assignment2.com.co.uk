@@ -57,6 +57,12 @@ namespace NetworksAssignment
         private static void Analyse()
         {
             SentimentModel model = new SentimentModel(File.ReadAllText("brain.json"));
+            List<Review> reviews = ReadFriendshipReviewData.readFileAsReview("friendships.reviews.txt").Where(r => r != null).ToList();
+
+            for (int i = 0; i < reviews.Count; i++)
+            {
+                reviews[i] = model.AnalyseReview(reviews[i]);
+            }
         }
 
         private static void Train()

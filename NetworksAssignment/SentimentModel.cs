@@ -20,12 +20,12 @@ namespace NetworksAssignment
 
             internal double GetNegProbabililty(string token)
             {
-                return tokens[token].probabilityNEG;
+                return (tokens.ContainsKey(token) ? tokens[token].probabilityNEG : 1);
             }
 
             internal double GetPosProbability(string token)
             {
-                return tokens[token].probabilityPOS;
+                return (tokens.ContainsKey(token) ? tokens[token].probabilityPOS : 1);
             }
         }
 

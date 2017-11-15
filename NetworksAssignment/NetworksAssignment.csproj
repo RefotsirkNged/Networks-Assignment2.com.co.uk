@@ -61,6 +61,7 @@
     <Compile Include="MatrixGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadFriendshipReviewData.cs" />
     <Compile Include="ReadSentimentTrainingData.cs" />
     <Compile Include="Review.cs" />
     <Compile Include="SentimentModel.cs" />

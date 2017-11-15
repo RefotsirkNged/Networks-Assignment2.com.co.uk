@@ -25,9 +25,12 @@ namespace NetworksAssignment
             public Review getReview()
             {
                 Review temp = new Review();
+                if (!review.Contains("*"))
+                {
+                    temp.tokens = Tokenizer.SplitString(review);
+                }
                 temp.user = userID;
                 temp.review = review;
-                temp.tokens = Tokenizer.SplitString(review);
                 return temp;
             }
         }

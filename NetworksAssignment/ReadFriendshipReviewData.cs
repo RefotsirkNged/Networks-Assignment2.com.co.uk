@@ -26,9 +26,9 @@ namespace NetworksAssignment
             {
                 Review temp = new Review();
                 temp.review = review.ToLower();
-                if (!review.Contains("*"))
+                if (!(review.Trim() == "*"))
                 {
-                    temp.tokens = Tokenizer.SplitString(temp.review);
+                    temp.tokens = Tokenizer.SplitString(summary.ToLower() + " " + temp.review);
                 }
                 else
                     temp.tokens = new List<string>();
@@ -68,7 +68,7 @@ namespace NetworksAssignment
                             dataList.LastOrDefault().summary = lineRead.Split(':')[1];
                         }
                         else if (lineRead.Contains("review:"))
-                            dataList.LastOrDefault().review = lineRead.Split(':')[1];
+                            dataList.LastOrDefault().review = lineRead.Split(':')[1].Replace("<br />", "").Replace("\"", "");
                         lineRead = sr.ReadLine();
                     }
                 }

@@ -18,7 +18,7 @@ namespace ConsoleApplication1
             public float helpfullness;
             public float score;
             public int time;
-            public string summory;
+            public string summary;
             public string text;
 
             public Review getReview()
@@ -30,7 +30,7 @@ namespace ConsoleApplication1
                     temp.sentiment = Review.Sentiment.positive;
                 temp.review = text.ToLower();
                 temp.user = userID;
-                temp.tokens = Tokenizer.SplitString(temp.review);
+                temp.tokens = Tokenizer.SplitString(summary.ToLower() + " " + temp.review);
                 return temp;
             }
         }
@@ -76,7 +76,7 @@ namespace ConsoleApplication1
                             dataList.LastOrDefault().time = Int32.Parse(lineRead.Split(':')[1]);
 
                         else if (lineRead.Contains("review/summary"))
-                            dataList.LastOrDefault().summory = lineRead.Split(':')[1];
+                            dataList.LastOrDefault().summary = lineRead.Split(':')[1];
 
                         else if (lineRead.Contains("review/text"))
                             dataList.LastOrDefault().text = lineRead.Split(':')[1];

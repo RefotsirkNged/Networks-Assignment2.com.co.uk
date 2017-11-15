@@ -17,6 +17,8 @@ namespace NetworksAssignment
             public int amountPOSReviews;
             public double SOfEmptyNEG;
             public double SOfEmptyPOS;
+            public int negWords;
+            public int posWords;
 
             internal double GetNegProbabililty(string token)
             {
@@ -72,24 +74,24 @@ namespace NetworksAssignment
                 NofXPOS = 0;
             }
 
-            public double probabilityNEG(int amountNEGReviews, int vocabularySize)
+            public double probabilityNEG(int negWords, int vocabularySize)
             {
-                return (double)(NofXNEG + 1) / (double)(amountNEGReviews + vocabularySize);
+                return (double)(NofXNEG + 1) / (double)(negWords + vocabularySize);
             }
 
-            public double probabilityPOS(int amountPOSReviews, int vocabularySize)
+            public double probabilityPOS(int posWords, int vocabularySize)
             {
-                return (double)(NofXPOS + 1) / (double)(amountPOSReviews + vocabularySize);
+                return (double)(NofXPOS + 1) / (double)(posWords + vocabularySize);
             }
 
-            public double notXProbabilityNEG(int amountNEGReviews, int vocabularySize)
+            public double notXProbabilityNEG(int negWords, int vocabularySize)
             {
-                return 1 - probabilityNEG(amountNEGReviews, vocabularySize);
+                return 1 - probabilityNEG(negWords, vocabularySize);
             }
 
-            public double notXProbabilityPOS(int amountPOSReviews, int vocabularySize)
+            public double notXProbabilityPOS(int posWords, int vocabularySize)
             {
-                return 1 - probabilityPOS(amountPOSReviews, vocabularySize);
+                return 1 - probabilityPOS(posWords, vocabularySize);
             }
         }
 
@@ -99,6 +101,8 @@ namespace NetworksAssignment
             public List<TokenSeializable> tokens;
             public int amountNEGReviews;
             public int amountPOSReviews;
+            public int negWords;
+            public int posWords;
 
             private double SOfEmptyPOS
             {
@@ -107,10 +111,10 @@ namespace NetworksAssignment
                     double sum = 1;
                     foreach (TokenModel t in _tokens.Values)
                     {
-                        sum = sum * t.notXProbabilityPOS(amountPOSReviews, size);
+                        sum = sum * t.notXProbabilityPOS(posWords, VocabularySize);
                     }
 
-                    return (double)(sum * ((double)amountPOSReviews / (double)size));
+                    return (double)(sum * ((double)amountPOSReviews / (double)(amountNEGReviews + amountPOSReviews)));
                 }
             }
 
@@ -121,14 +125,14 @@ namespace NetworksAssignment
                     double sum = 1;
                     foreach (TokenModel t in _tokens.Values)
                     {
-                        sum = sum * t.notXProbabilityNEG(amountNEGReviews, size);
+                        sum = sum * t.notXProbabilityNEG(negWords, VocabularySize);
                     }
 
-                    return (double)(sum * ((double)amountNEGReviews / (double)size));
+                    return (double)(sum * ((double)amountNEGReviews / (double)(amountNEGReviews + amountPOSReviews)));
                 }
             }
 
-            public int size
+            public int VocabularySize
             {
                 get
                 {
@@ -143,7 +147,7 @@ namespace NetworksAssignment
 
                 foreach (TokenModel t in _tokens.Values)
                 {
-                    sTokens.Add(t.token, new TokenSeializable(t.token, t.NofXNEG, t.NofXPOS, t.probabilityNEG(amountNEGReviews, _tokens.Count), t.probabilityPOS(amountPOSReviews, _tokens.Count)));
+                    sTokens.Add(t.token, new TokenSeializable(t.token, t.NofXNEG, t.NofXPOS, t.probabilityNEG(negWords, _tokens.Count), t.probabilityPOS(posWords, _tokens.Count)));
                 }
 
                 sVocabulary.amountNEGReviews = amountNEGReviews;
@@ -151,6 +155,8 @@ namespace NetworksAssignment
                 sVocabulary.SOfEmptyNEG = SOfEmptyNEG;
                 sVocabulary.SOfEmptyPOS = SOfEmptyPOS;
                 sVocabulary.tokens = sTokens;
+                sVocabulary.negWords = negWords;
+                sVocabulary.posWords = posWords;
 
                 return JsonConvert.SerializeObject(sVocabulary);
             }
@@ -198,7 +204,8 @@ namespace NetworksAssignment
             this.reviews = reviews;
             vocabulary.amountNEGReviews = 0;
             vocabulary.amountPOSReviews = 0;
-            
+            vocabulary.negWords = 0;
+            vocabulary.posWords = 0;
 
             foreach (Review review in this.reviews)
             {
@@ -208,9 +215,11 @@ namespace NetworksAssignment
                     {
                         case Review.Sentiment.positive:
                             vocabulary.amountPOSReviews++;
+                            vocabulary.posWords += review.tokens.Count;
                             break;
                         case Review.Sentiment.negative:
                             vocabulary.amountNEGReviews++;
+                            vocabulary.negWords += review.tokens.Count;
                             break;
                         default:
                             break;
@@ -237,8 +246,8 @@ namespace NetworksAssignment
 
             foreach (string token in review.tokens)
             {
-                probabilityNeg = probabilityNeg * sVocabulary.GetNegProbabililty(token);
-                probabilityPos = probabilityPos * sVocabulary.GetPosProbability(token);
+                probabilityNeg = probabilityNeg * (sVocabulary.GetNegProbabililty(token) / (1 - sVocabulary.GetNegProbabililty(token)));
+                probabilityPos = probabilityPos * (sVocabulary.GetPosProbability(token) / (1 - sVocabulary.GetPosProbability(token)));
             }
 
             probabilityNeg = probabilityNeg * sVocabulary.SOfEmptyNEG;
@@ -266,12 +275,12 @@ namespace NetworksAssignment
 
         public double GetProbabilityNEG(string token)
         {
-            return vocabulary.Get(token).probabilityPOS(vocabulary.amountNEGReviews, vocabulary.size);
+            return vocabulary.Get(token).probabilityPOS(vocabulary.posWords, vocabulary.VocabularySize);
         }
 
         public double GetProbabilityPOS(string token)
         {
-            return vocabulary.Get(token).probabilityPOS(vocabulary.amountPOSReviews, vocabulary.size);
+            return vocabulary.Get(token).probabilityPOS(vocabulary.negWords, vocabulary.VocabularySize);
         }
     }
 }

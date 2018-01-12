@@ -44,5 +44,24 @@ D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssig
 D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.csproj.CoreCompileInputs.cache
 D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
 D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
+<<<<<<< HEAD
 D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\System.Threading.dll
 D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\System.Threading.xml
+=======
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x64\libiomp5md.dll
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x64\MathNet.Numerics.MKL.dll
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x86\libiomp5md.dll
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x86\MathNet.Numerics.MKL.dll
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.exe.config
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.exe
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.pdb
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\MathNet.Numerics.dll
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\Newtonsoft.Json.dll
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\OpenNLP.dll
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\SharpEntropy.dll
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\MathNet.Numerics.xml
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.csprojResolveAssemblyReference.cache
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.csproj.CoreCompileInputs.cache
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
+>>>>>>> master

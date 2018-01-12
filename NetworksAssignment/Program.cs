@@ -54,6 +54,12 @@ namespace NetworksAssignment
                         PredictSentiment();
                         Console.WriteLine("Done!");
                         break;
+                    case "5":
+                        Console.WriteLine("Performing crossvalidation");
+                        CrossValidation cv = new CrossValidation();
+
+                        Console.WriteLine("Done!");
+                        break;
                     default:
                         break;
                 }

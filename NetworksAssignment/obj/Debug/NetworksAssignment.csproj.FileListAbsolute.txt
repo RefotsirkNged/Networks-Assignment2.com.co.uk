@@ -65,3 +65,5 @@ C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignmen
 C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
 C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
 >>>>>>> master
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\System.Threading.dll
+C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\System.Threading.xml

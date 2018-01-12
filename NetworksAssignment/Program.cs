@@ -59,7 +59,7 @@ namespace NetworksAssignment
                     case "5":
                         Console.WriteLine("Performing crossvalidation");
                         CrossValidation cv = new CrossValidation();
-                        cv.TenFoldCrossvalidate();
+                        cv.CrossValidate(10);
                         Console.WriteLine("Done!");
                         break;
                     default:

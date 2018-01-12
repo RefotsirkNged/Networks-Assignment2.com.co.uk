@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConvertDataToReview.cs" />
+    <Compile Include="CrossValidation.cs" />
     <Compile Include="MatrixGenerator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

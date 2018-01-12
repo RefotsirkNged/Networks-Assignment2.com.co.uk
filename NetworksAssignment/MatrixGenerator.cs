@@ -15,11 +15,13 @@ namespace NetworksAssignment
     class MatrixGenerator
     {
         public Dictionary<string, int> nameMapping;
+        public Dictionary<int, List<int>> allFriendships;
         int size;
 
         public MatrixGenerator()
         {
-
+            allFriendships = GenerateFriendships();
+            size = allFriendships.Count;
         }
 
         public Dictionary<int, List<int>> GenerateFriendships()
@@ -27,7 +29,6 @@ namespace NetworksAssignment
             Dictionary<int, List<int>> friendships = new Dictionary<int, List<int>>();
 
             nameMapping = new Dictionary<string, int>();
-            size = nameMapping.Count;
 
             int userID = 0;
             using (StreamReader reader = new StreamReader(File.OpenRead("friendships.reviews.txt")))
@@ -135,13 +136,13 @@ namespace NetworksAssignment
 
         public double[,] GetAdjancencyMatrix(Dictionary<int, List<int>> friendships)
         {
-            double[,] adjacencyMatrix = new double[friendships.Keys.Count, friendships.Keys.Count];
+            double[,] adjacencyMatrix = new double[size, size];
             
-            for (int i = 0; i < friendships.Keys.Count; i++)
+            for (int i = 0; i < size; i++)
             {
-                for (int j = 0; j < friendships.Keys.Count; j++)
+                for (int j = 0; j < size; j++)
                 {
-                    if (friendships[i].Contains(j))
+                    if (friendships.ContainsKey(i) && friendships[i].Contains(j))
                         adjacencyMatrix[i, j] = 1;
                     else
                         adjacencyMatrix[i, j] = 0;
@@ -153,11 +154,11 @@ namespace NetworksAssignment
 
         public double[,] GetDegreeMatrix(Dictionary<int, List<int>> friendships)
         {
-            double[,] degreeMatrix = new double[friendships.Keys.Count, friendships.Keys.Count];
+            double[,] degreeMatrix = new double[size, size];
 
-            for (int i = 0; i < friendships.Keys.Count; i++)
+            for (int i = 0; i < size; i++)
             {
-                for (int j = 0; j < friendships.Keys.Count; j++)
+                for (int j = 0; j < size; j++)
                 {
                     degreeMatrix[i, j] = 0;
                 }

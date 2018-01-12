@@ -33,14 +33,16 @@ namespace NetworksAssignment
         public List<List<int>> FindCommunities()
         {
             List<List<int>> results = new List<List<int>>();
+            List<List<int>> intialCommunities;
+
 
             Matrix<double> AdjacencyArray = DenseMatrix.OfArray(mg.GetAdjancencyMatrix(friendships));
             Matrix<double> DegreeArray = DenseMatrix.OfArray(mg.GetDegreeMatrix(friendships));
             Matrix<double> unnormalizedlaplace = DegreeArray - AdjacencyArray;
 
-            results.AddRange(FindCommunitiesHelper(unnormalizedlaplace));
+            intialCommunities = FindCommunitiesHelper(unnormalizedlaplace);
 
-            foreach (List<int> community in results)
+            foreach (List<int> community in intialCommunities)
             {
                 Dictionary<int, List<int>> communityFriendships = new Dictionary<int, List<int>>();
 
@@ -89,7 +91,7 @@ namespace NetworksAssignment
             }
 
             communities.Add(new List<int>());
-            foreach (Tuple<int, double> mapping in eigenVectorMapping.Where(x => x.Item2 >= 0).ToList())
+            foreach (Tuple<int, double> mapping in eigenVectorMapping.Where(x => x.Item2 > 0).ToList())
             {
                 communities.Last().Add(mapping.Item1);
             }

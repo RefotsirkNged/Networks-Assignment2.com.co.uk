@@ -57,7 +57,7 @@ namespace NetworksAssignment
                         if (lineRead.Contains("user:"))
                         {
                             dataList.Add(new FriendshipReviewDataType());
-                            dataList.LastOrDefault().userID = lineRead.Split(':')[1].ToLower().Trim();
+                            dataList.LastOrDefault().userID = lineRead.Split(':')[1].Trim();
                         }
 
                         else if (lineRead.Contains("friends:"))

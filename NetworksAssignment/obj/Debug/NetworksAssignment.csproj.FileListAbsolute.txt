@@ -44,6 +44,10 @@ D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssig
 D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.csproj.CoreCompileInputs.cache
 D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
 D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
+<<<<<<< HEAD
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\System.Threading.dll
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\System.Threading.xml
+=======
 C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x64\libiomp5md.dll
 C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x64\MathNet.Numerics.MKL.dll
 C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x86\libiomp5md.dll
@@ -60,3 +64,4 @@ C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignmen
 C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.csproj.CoreCompileInputs.cache
 C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
 C:\Users\krist\Documents\Github\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
+>>>>>>> master

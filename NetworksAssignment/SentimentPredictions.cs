@@ -1,6 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+using MathNet.Numerics;
+using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Double;
+using MathNet.Numerics.LinearAlgebra.Factorization;
 using ConsoleApplication1;
 using System.IO;
 
@@ -14,9 +21,9 @@ namespace NetworksAssignment
         public SentimentPredictions()
         {
             sc = new SpectralClustering();
-            SentimentModel model = new SentimentModel(File.ReadAllText("brain.json"));
-            reviews = ReadFriendshipReviewData.readFileAsReview("friendships.reviews.txt").Where(r => r != null).ToList();
             List<List<int>> rawCommunities = sc.FindCommunities();
+            SentimentModel model = new SentimentModel(File.ReadAllText("brain.json"));
+            reviews = ReadFriendshipReviewData.readFileAsReview("friendships.reviews.txt");//.Where(r => r != null).ToList();
 
             for (int i = 0; i < reviews.Count; i++)
             {
@@ -45,7 +52,7 @@ namespace NetworksAssignment
             int average = 0;
             foreach (int friend in sc.friendships[sc.mg.nameMapping[user.user.ToLower().Trim()]])
             {
-                Review friendReview = reviews.Where(r => r.user == sc.mg.idMapping[friend]).First();
+                Review friendReview = reviews.Where(r => r.user.ToLower().Trim() == sc.mg.idMapping[friend].ToLower().Trim()).First();
 
                 int multiplier = 1;
 

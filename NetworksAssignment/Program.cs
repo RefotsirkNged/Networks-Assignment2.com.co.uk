@@ -69,8 +69,8 @@ namespace NetworksAssignment
         {
             SentimentPredictions predictions = new SentimentPredictions();
 
-            List<Review> willBuy = predictions.reviews.Where(r => r.sentiment == Review.Sentiment.positive && r.review == "*").ToList();
-            List<Review> willNotBuy = predictions.reviews.Where(r => r.sentiment == Review.Sentiment.negative && r.review == "*").ToList();
+            List<Review> willBuy = predictions.reviews.Where(r => r.sentiment == Review.Sentiment.positive && r.review.Trim() == "*").ToList();
+            List<Review> willNotBuy = predictions.reviews.Where(r => r.sentiment == Review.Sentiment.negative && r.review.Trim() == "*").ToList();
         }
 
         private static void Analyse()

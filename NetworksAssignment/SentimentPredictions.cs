@@ -50,9 +50,9 @@ namespace NetworksAssignment
         private void PredictSentiment(Review user)
         {
             int average = 0;
-            foreach (int friend in sc.friendships[sc.mg.nameMapping[user.user.ToLower().Trim()]])
+            foreach (int friend in sc.friendships[sc.mg.nameMapping[user.user.Trim()]])
             {
-                Review friendReview = reviews.Where(r => r.user.ToLower().Trim() == sc.mg.idMapping[friend].ToLower().Trim()).First();
+                Review friendReview = reviews.Where(r => r.user.Trim() == sc.mg.idMapping[friend].Trim()).First();
 
                 int multiplier = 1;
 

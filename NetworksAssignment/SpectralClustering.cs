@@ -37,21 +37,47 @@ namespace NetworksAssignment
 
             intialCommunities = FindCommunitiesHelper(unnormalizedlaplace);
 
-            foreach (List<int> community in intialCommunities)
+
+
+            Dictionary<int, List<int>> communityFriendships1 = new Dictionary<int, List<int>>();
+
+            foreach (int user in intialCommunities[0])
             {
-                Dictionary<int, List<int>> communityFriendships = new Dictionary<int, List<int>>();
-
-                foreach (int user in community)
-                {
-                    communityFriendships.Add(user, friendships[user]);
-                }
-
-                AdjacencyArray = DenseMatrix.OfArray(mg.GetAdjancencyMatrix(communityFriendships));
-                DegreeArray = DenseMatrix.OfArray(mg.GetDegreeMatrix(communityFriendships));
-                unnormalizedlaplace = DegreeArray - AdjacencyArray;
-
-                results.AddRange(FindCommunitiesHelper(unnormalizedlaplace));
+                communityFriendships1.Add(user, friendships[user]);
             }
+
+            AdjacencyArray = DenseMatrix.OfArray(mg.GetAdjancencyMatrix(communityFriendships1));
+            DegreeArray = DenseMatrix.OfArray(mg.GetDegreeMatrix(communityFriendships1));
+            unnormalizedlaplace = DegreeArray - AdjacencyArray;
+            results.AddRange(FindCommunitiesHelper(unnormalizedlaplace));
+
+            Dictionary<int, List<int>> communityFriendships2 = new Dictionary<int, List<int>>();
+
+            foreach (int user in intialCommunities[1])
+            {
+                communityFriendships2.Add(user, friendships[user]);
+            }
+
+            AdjacencyArray = DenseMatrix.OfArray(mg.GetAdjancencyMatrix(communityFriendships2));
+            DegreeArray = DenseMatrix.OfArray(mg.GetDegreeMatrix(communityFriendships2));
+            unnormalizedlaplace = DegreeArray - AdjacencyArray;
+            results.AddRange(FindCommunitiesHelper(unnormalizedlaplace));
+
+            //foreach (List<int> community in intialCommunities)
+            //{
+            //    Dictionary<int, List<int>> communityFriendships = new Dictionary<int, List<int>>();
+
+            //    foreach (int user in community)
+            //    {
+            //        communityFriendships.Add(user, friendships[user]);
+            //    }
+
+            //    AdjacencyArray = DenseMatrix.OfArray(mg.GetAdjancencyMatrix(communityFriendships));
+            //    DegreeArray = DenseMatrix.OfArray(mg.GetDegreeMatrix(communityFriendships));
+            //    unnormalizedlaplace = DegreeArray - AdjacencyArray;
+            //    FindCommunitiesHelper(unnormalizedlaplace);
+            //    //results.AddRange();
+            //}
 
             return results;
         }
@@ -64,7 +90,7 @@ namespace NetworksAssignment
             
             Console.WriteLine("unnormalized");
             Console.WriteLine(unnormalizedlaplace);
-            var evdmat = unnormalizedlaplace.Evd();
+            Evd<Double> evdmat = unnormalizedlaplace.Evd();
             Console.WriteLine("Eigenvectors");
             Console.WriteLine(evdmat.EigenVectors);
 
@@ -92,41 +118,6 @@ namespace NetworksAssignment
             }
 
             return communities;
-
-            //for (int i = 0; i < eigenVectorMapping.Count; i++)
-            //{
-            //    Console.WriteLine(eigenVectorMapping[i].Item2);
-            //    if (i < eigenVectorMapping.Count - 1)
-            //    {
-            //        if (((eigenVectorMapping[i + 1].Item2 - eigenVectorMapping[i].Item2) / eigenVectorMapping[i].Item2) * 100 >= 30)
-            //        {
-            //            Console.WriteLine("Cut: " + i);
-            //            cuts.Add(i);
-            //        }
-            //    }
-            //}
-
-            //List<List<int>> communities = new List<List<int>>();
-
-            //int j = 0;
-            //foreach (int index in cuts)
-            //{
-            //    communities.Add(new List<int>());
-
-            //    for (int i = j; i < index; i++)
-            //    {
-            //        communities.Last().Add(eigenVectorMapping[i].Item1);
-            //    }
-
-            //    j = index;
-            //}
-
-            //communities.Add(new List<int>());
-
-            //for (int i = j; i < eigenVectorMapping.Count; i++)
-            //{
-            //    communities.Last().Add(eigenVectorMapping[i].Item1);
-            //}
         }
     }
 }

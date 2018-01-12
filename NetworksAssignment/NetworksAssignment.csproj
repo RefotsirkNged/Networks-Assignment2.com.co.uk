@@ -65,6 +65,7 @@
     <Compile Include="ReadSentimentTrainingData.cs" />
     <Compile Include="Review.cs" />
     <Compile Include="SentimentModel.cs" />
+    <Compile Include="SpectralClustering.cs" />
     <Compile Include="Tokenizer.cs" />
   </ItemGroup>
   <ItemGroup>

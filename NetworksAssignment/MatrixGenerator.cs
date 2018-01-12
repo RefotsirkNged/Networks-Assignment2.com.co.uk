@@ -14,15 +14,73 @@ namespace NetworksAssignment
 {
     class MatrixGenerator
     {
-        private List<List<double>> matrix;
         public Dictionary<string, int> nameMapping;
+        int size;
 
         public MatrixGenerator()
         {
-            matrix = new List<List<double>>();
+
+        }
+
+        public Dictionary<int, List<int>> GenerateFriendships()
+        {
+            Dictionary<int, List<int>> friendships = new Dictionary<int, List<int>>();
+
+            nameMapping = new Dictionary<string, int>();
+            size = nameMapping.Count;
+
+            int userID = 0;
+            using (StreamReader reader = new StreamReader(File.OpenRead("friendships.reviews.txt")))
+            {
+                string line = "";
+                while ((line = reader.ReadLine()) != null)
+                {
+                    //if line contains user, check if user exists and add if not else continue
+                    if (line.Contains("user:"))
+                    {
+                        string name = line.Split(':').Last().Trim().ToLower();
+
+                        if (!nameMapping.Keys.Contains(name) && name != string.Empty)
+                        {
+                            nameMapping.Add(name, userID++);
+                            friendships.Add(nameMapping[name], new List<int>());
+                        }
+                    }
+                }
+            }
+
+            using (StreamReader reader = new StreamReader(File.OpenRead("friendships.reviews.txt")))
+            {
+                string line = "";
+                while ((line = reader.ReadLine()) != null)
+                {
+                    //if line contains user, check if user exists and add if not else continue
+                    if (line.Contains("user:"))
+                    {
+                        string name = line.Split(':').Last().Trim().ToLower();
+                        line = reader.ReadLine();
+
+                        if (line.Contains("friends:"))
+                        {
+                            foreach (string friend in line.Split(':').Last().Split('\t'))
+                            {
+                                if (friend != string.Empty)
+                                    friendships[nameMapping[name]].Add(nameMapping[friend.Trim().ToLower()]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return friendships;
+        }
+
+        public List<List<double>> GenerateMatrix()
+        {
+            List<List<double>> matrix = new List<List<double>>();
             nameMapping = new Dictionary<string, int>();
 
-            using (StreamReader reader = new StreamReader(File.OpenRead("friendships.txt")))
+            using (StreamReader reader = new StreamReader(File.OpenRead("friendships.reviews.txt")))
             {
                 string line = "";
                 while ((line = reader.ReadLine()) != null)
@@ -49,7 +107,7 @@ namespace NetworksAssignment
                 }
             }
 
-            using (StreamReader reader = new StreamReader(File.OpenRead("friendships.txt")))
+            using (StreamReader reader = new StreamReader(File.OpenRead("friendships.reviews.txt")))
             {
                 string line = "";
                 while ((line = reader.ReadLine()) != null)
@@ -64,52 +122,50 @@ namespace NetworksAssignment
                         {
                             foreach (string friend in line.Split(':').Last().Split('\t'))
                             {
-                                if(friend != string.Empty)
+                                if (friend != string.Empty)
                                     matrix[nameMapping[name]][nameMapping[friend.Trim().ToLower()]] = 1;
                             }
                         }
                     }
                 }
             }
+
+            return matrix;
         }
 
-
-        public double[,] GetAdjancencyMatrix()
+        public double[,] GetAdjancencyMatrix(Dictionary<int, List<int>> friendships)
         {
-            double[,] adjacencyMatrix = new double[matrix.Count, matrix.Count];
-
-            for (int i = 0; i < matrix.Count; i++)
+            double[,] adjacencyMatrix = new double[friendships.Keys.Count, friendships.Keys.Count];
+            
+            for (int i = 0; i < friendships.Keys.Count; i++)
             {
-                for (int j = 0; j < matrix.Count; j++)
+                for (int j = 0; j < friendships.Keys.Count; j++)
                 {
-                    adjacencyMatrix[i, j] = matrix[i][j];
+                    if (friendships[i].Contains(j))
+                        adjacencyMatrix[i, j] = 1;
+                    else
+                        adjacencyMatrix[i, j] = 0;
                 }
             }
 
             return adjacencyMatrix;
         }
 
-        public double[,] GetDegreeMatrix()
+        public double[,] GetDegreeMatrix(Dictionary<int, List<int>> friendships)
         {
-            double[,] degreeMatrix = new double[matrix.Count, matrix.Count];
+            double[,] degreeMatrix = new double[friendships.Keys.Count, friendships.Keys.Count];
 
-            for (int i = 0; i < matrix.Count; i++)
+            for (int i = 0; i < friendships.Keys.Count; i++)
             {
-                for (int j = 0; j < matrix.Count; j++)
+                for (int j = 0; j < friendships.Keys.Count; j++)
                 {
-                    degreeMatrix[i,j] = 0;
+                    degreeMatrix[i, j] = 0;
                 }
             }
-
-            int userIndex = 0;
-            foreach (List<double> user in matrix)
+            
+            foreach (int user in friendships.Keys)
             {
-                foreach (double friend in user)
-                {
-                    degreeMatrix[userIndex, userIndex] += friend;
-                }
-
-                userIndex++;
+                degreeMatrix[user, user] += friendships[user].Count;
             }
 
             return degreeMatrix;

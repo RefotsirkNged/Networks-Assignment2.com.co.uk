@@ -28,3 +28,19 @@ C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAss
 C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.csproj.CoreCompileInputs.cache
 C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
 C:\Users\August Kørvell\Source\Repos\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x64\libiomp5md.dll
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x64\MathNet.Numerics.MKL.dll
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x86\libiomp5md.dll
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\x86\MathNet.Numerics.MKL.dll
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.exe.config
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.exe
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\NetworksAssignment.pdb
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\MathNet.Numerics.dll
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\OpenNLP.dll
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\SharpEntropy.dll
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\bin\Debug\MathNet.Numerics.xml
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.csprojResolveAssemblyReference.cache
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.csproj.CoreCompileInputs.cache
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.exe
+D:\Dev\Networks-Assignment2.com.co.uk\NetworksAssignment\obj\Debug\NetworksAssignment.pdb

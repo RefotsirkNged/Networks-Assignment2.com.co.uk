@@ -24,6 +24,7 @@ namespace NetworksAssignment
                 Console.WriteLine("What do you want to do:");
                 Console.WriteLine("1: Train from file");
                 Console.WriteLine("2: Analyse file");
+                Console.WriteLine("3: Find communities");
                 Console.WriteLine("0: Exit");
 
                 string answer = Console.ReadLine();
@@ -41,6 +42,11 @@ namespace NetworksAssignment
                     case "2":
                         Console.WriteLine("Analysing...");
                         Analyse();
+                        Console.WriteLine("Done!");
+                        break;
+                    case "3":
+                        Console.WriteLine("Looking for communities...");
+                        FindCommunities();
                         Console.WriteLine("Done!");
                         break;
                     default:
@@ -63,6 +69,7 @@ namespace NetworksAssignment
             {
                 reviews[i] = model.AnalyseReview(reviews[i]);
             }
+            reviews = reviews.Where(r => r.sentiment != Review.Sentiment.blank).ToList();
         }
 
         private static void Train()
@@ -80,69 +87,11 @@ namespace NetworksAssignment
 
         private static void FindCommunities()
         {
-            MatrixGenerator mg = new MatrixGenerator();
-            List<Tuple<int, double>> eigenVectorMapping = new List<Tuple<int, double>>();
+            SpectralClustering sc = new SpectralClustering();
 
-            Matrix<double> AdjacencyArray = DenseMatrix.OfArray(mg.GetAdjancencyMatrix());
-            Matrix<double> DegreeArray = DenseMatrix.OfArray(mg.GetDegreeMatrix());
-
-            Control.UseNativeMKL();
-            var unnormalizedlaplace = DegreeArray - AdjacencyArray;
-            Console.WriteLine("unnormalized");
-            Console.WriteLine(unnormalizedlaplace);
-            var evdmat = unnormalizedlaplace.Evd();
-            Console.WriteLine("Eigenvectors");
-            Console.WriteLine(evdmat.EigenVectors);
-
-            Console.WriteLine("Result:");
-
-            for (int i = 0; i < evdmat.EigenVectors.RowCount; i++)
+            foreach (List<int> community in sc.FindCommunities())
             {
-                eigenVectorMapping.Add(new Tuple<int, double>(i, evdmat.EigenVectors[i, 1]));
-            }
-
-            eigenVectorMapping = eigenVectorMapping.OrderBy(t => t.Item2).ToList();
-
-
-            List<int> cuts = new List<int>();
-
-            for (int i = 0; i < eigenVectorMapping.Count; i++)
-            {
-                if (i < eigenVectorMapping.Count - 1)
-                {
-                    if (((eigenVectorMapping[i + 1].Item2 - eigenVectorMapping[i].Item2) / eigenVectorMapping[i].Item2) * 100 >= 30)
-                    {
-                        Console.WriteLine("Cut: " + i);
-                        cuts.Add(i);
-                    }
-                }
-            }
-
-            List<List<int>> communities = new List<List<int>>();
-
-            int j = 0;
-            foreach (int index in cuts)
-            {
-                communities.Add(new List<int>());
-
-                for (int i = j; i < index; i++)
-                {
-                    communities.Last().Add(eigenVectorMapping[i].Item1);
-                }
-
-                j = index;
-            }
-
-            communities.Add(new List<int>());
-
-            for (int i = j; i < eigenVectorMapping.Count; i++)
-            {
-                communities.Last().Add(eigenVectorMapping[i].Item1);
-            }
-
-            foreach (List<int> c in communities)
-            {
-                Console.WriteLine(c.Count);
+                Console.WriteLine(community.Count);
             }
         }
     }

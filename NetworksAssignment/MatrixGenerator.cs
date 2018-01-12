@@ -34,7 +34,7 @@ namespace NetworksAssignment
 
 
             int userID = 0;
-            using (StreamReader reader = new StreamReader(File.OpenRead("friendships.reviews.txt")))
+            using (StreamReader reader = new StreamReader("friendships.reviews.txt"))
             {
                 string line = "";
                 while ((line = reader.ReadLine()) != null)
@@ -42,7 +42,7 @@ namespace NetworksAssignment
                     //if line contains user, check if user exists and add if not else continue
                     if (line.Contains("user:"))
                     {
-                        string name = line.Split(':').Last().Trim().ToLower();
+                        string name = line.Split(':').Last().Trim();
 
                         if (!nameMapping.Keys.Contains(name) && name != string.Empty)
                         {
@@ -50,6 +50,10 @@ namespace NetworksAssignment
                             nameMapping.Add(name, nextID);
                             idMapping.Add(nextID, name);
                             friendships.Add(nameMapping[name], new List<int>());
+                        }
+                        else
+                        {
+                            throw new NotImplementedException();
                         }
                     }
                 }
@@ -63,7 +67,7 @@ namespace NetworksAssignment
                     //if line contains user, check if user exists and add if not else continue
                     if (line.Contains("user:"))
                     {
-                        string name = line.Split(':').Last().Trim().ToLower();
+                        string name = line.Split(':').Last().Trim();
                         line = reader.ReadLine();
 
                         if (line.Contains("friends:"))
@@ -71,7 +75,7 @@ namespace NetworksAssignment
                             foreach (string friend in line.Split(':').Last().Split('\t'))
                             {
                                 if (friend != string.Empty)
-                                    friendships[nameMapping[name]].Add(nameMapping[friend.Trim().ToLower()]);
+                                    friendships[nameMapping[name]].Add(nameMapping[friend.Trim()]);
                             }
                         }
                     }
@@ -94,7 +98,7 @@ namespace NetworksAssignment
                     //if line contains user, check if user exists and add if not else continue
                     if (line.Contains("user:"))
                     {
-                        string name = line.Split(':').Last().Trim().ToLower();
+                        string name = line.Split(':').Last().Trim();
 
                         if (!nameMapping.Keys.Contains(name) && name != string.Empty)
                         {
@@ -121,7 +125,7 @@ namespace NetworksAssignment
                     //if line contains user, check if user exists and add if not else continue
                     if (line.Contains("user:"))
                     {
-                        string name = line.Split(':').Last().Trim().ToLower();
+                        string name = line.Split(':').Last().Trim();
                         line = reader.ReadLine();
 
                         if (line.Contains("friends:"))
@@ -129,7 +133,7 @@ namespace NetworksAssignment
                             foreach (string friend in line.Split(':').Last().Split('\t'))
                             {
                                 if (friend != string.Empty)
-                                    matrix[nameMapping[name]][nameMapping[friend.Trim().ToLower()]] = 1;
+                                    matrix[nameMapping[name]][nameMapping[friend.Trim()]] = 1;
                             }
                         }
                     }

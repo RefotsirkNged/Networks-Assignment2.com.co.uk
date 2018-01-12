@@ -30,15 +30,15 @@ namespace ConsoleApplication1
         {
             List<Review> newReviewList = new List<Review>();
 
-            Parallel.ForEach(dataList, currentReview =>
-            {
-                newReviewList.Add(currentReview.getReview());
-            });
-
-            //foreach(ReadSentimentTrainingData.SentimentDataType element in dataList)
+            //Parallel.ForEach(dataList, currentReview =>
             //{
-            //    newReviewList.Add(element.getReview());
-            //}
+            //    newReviewList.Add(currentReview.getReview());
+            //});
+
+            foreach (ReadFriendshipReviewData.FriendshipReviewDataType element in dataList)
+            {
+                newReviewList.Add(element.getReview());
+            }
 
             return newReviewList;
         }

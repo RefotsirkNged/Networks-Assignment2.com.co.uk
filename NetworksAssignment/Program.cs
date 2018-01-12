@@ -49,6 +49,11 @@ namespace NetworksAssignment
                         FindCommunities();
                         Console.WriteLine("Done!");
                         break;
+                    case "4":
+                        Console.WriteLine("Making predictions...");
+                        PredictSentiment();
+                        Console.WriteLine("Done!");
+                        break;
                     default:
                         break;
                 }
@@ -58,6 +63,14 @@ namespace NetworksAssignment
             }
 
             
+        }
+
+        private static void PredictSentiment()
+        {
+            SentimentPredictions predictions = new SentimentPredictions();
+
+            List<Review> willBuy = predictions.reviews.Where(r => r.sentiment == Review.Sentiment.positive && r.review == "*").ToList();
+            List<Review> willNotBuy = predictions.reviews.Where(r => r.sentiment == Review.Sentiment.negative && r.review == "*").ToList();
         }
 
         private static void Analyse()

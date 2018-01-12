@@ -15,6 +15,7 @@ namespace NetworksAssignment
     class MatrixGenerator
     {
         public Dictionary<string, int> nameMapping;
+        public Dictionary<int, string> idMapping;
         public Dictionary<int, List<int>> allFriendships;
         int size;
 
@@ -29,6 +30,8 @@ namespace NetworksAssignment
             Dictionary<int, List<int>> friendships = new Dictionary<int, List<int>>();
 
             nameMapping = new Dictionary<string, int>();
+            idMapping = new Dictionary<int, string>();
+
 
             int userID = 0;
             using (StreamReader reader = new StreamReader(File.OpenRead("friendships.reviews.txt")))
@@ -43,7 +46,9 @@ namespace NetworksAssignment
 
                         if (!nameMapping.Keys.Contains(name) && name != string.Empty)
                         {
-                            nameMapping.Add(name, userID++);
+                            int nextID = userID++;
+                            nameMapping.Add(name, nextID);
+                            idMapping.Add(nextID, name);
                             friendships.Add(nameMapping[name], new List<int>());
                         }
                     }

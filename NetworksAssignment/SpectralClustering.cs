@@ -15,19 +15,14 @@ namespace NetworksAssignment
 {
     class SpectralClustering
     {
-        MatrixGenerator mg;
-        Dictionary<int, List<int>> friendships;
+        public MatrixGenerator mg;
+        public Dictionary<int, List<int>> friendships;
 
         public SpectralClustering()
         {
             mg = new MatrixGenerator();
 
             friendships = mg.GenerateFriendships();
-
-            
-           
-
-            
         }
 
         public List<List<int>> FindCommunities()

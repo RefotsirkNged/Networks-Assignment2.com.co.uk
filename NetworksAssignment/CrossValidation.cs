@@ -13,62 +13,112 @@ namespace NetworksAssignment
 
         public CrossValidation()
         {
-            if (!File.Exists("brain.json"))
-            {
-                ReadTestData();
-            }
-            SentimentModel brain = new SentimentModel(File.ReadAllText("brain.json"));
-
-            List<List<Review>> folds = FindFoldsFromTrainingData();
-
-            AnalyseUsingTestData(folds);
 
         }
 
-
-
-        private void ReadTestData()
+        public void CrossValidate(int foldcount)
         {
-            SentimentModel model = new SentimentModel(ReadSentimentTrainingData.readFileAsReview("SentimentTestingData.txt"));
-
-            FileStream brainFile = File.Create("brain.json");
-
-            using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(brainFile))
+            List<List<Review>> folds = FindFoldsFromTrainingData(foldcount);
+            List<double> AccuracyList = new List<double>();
+            //For each fold
+            for (int i = 0; i < foldcount; i++)
             {
-                file.Write(model.vocabulary.JSONSerialize());
+                //Train brain
+                string trainingBrain = TrainFoldBrain(folds, i);
+
+                //predict on the unused fold using that brain (returns in percentage)
+                AccuracyList.Add(AnalyseUsingTestData(trainingBrain, folds[i]));
+
+            }
+            Console.WriteLine("Accuracy results:");
+            foreach (double result in AccuracyList)
+            {
+
+                Console.WriteLine(result);
             }
         }
 
-        private void AnalyseUsingTestData(List<List<Review>> testData)
+        private string TrainFoldBrain(List<List<Review>> folds, int foldBeingTested)
         {
-            SentimentModel brain = new SentimentModel(File.ReadAllText("brain.json"));
-            List<Review> reviews = ReadFriendshipReviewData.readFileAsReview("friendships.reviews.txt").Where(r => r != null).ToList();
-
-            for (int i = 0; i < reviews.Count; i++)
+            List<Review> brainFolds = new List<Review>();
+            for (int i = 0; i < folds.Count; i++)
             {
-                reviews[i] = brain.AnalyseReview(reviews[i]);
+                if (i != foldBeingTested)
+                {
+                    brainFolds.AddRange(folds[i]);
+                }
             }
-            reviews = reviews.Where(r => r.sentiment != Review.Sentiment.blank).ToList();
+            string testBrainJSON = new SentimentModel(brainFolds).vocabulary.JSONSerialize();
+            return testBrainJSON;
         }
-
-        private List<List<Review>> FindFoldsFromTrainingData()
+        private List<List<Review>> FindFoldsFromTrainingData(int foldcount)
         {
-            List<Review> reviews = ReadFriendshipReviewData.readFileAsReview("friendships.reviews.txt")
+            List<Review> reviews = ReadSentimentTrainingData.readFileAsReview("SentimentTrainingData.txt")
                 .Where(r => r != null).ToList();
             List<List<Review>> folds = new List<List<Review>>();
 
-            int foldLength = (int) reviews.Count / 10;
-            for (int i = 0; i < 10; i++)
+
+
+
+
+            List<Review> negReviews = reviews.Where(r => r.sentiment == Review.Sentiment.negative).ToList();
+            List<Review> posReviews = reviews.Where(r => r.sentiment == Review.Sentiment.positive).ToList();
+            List<Review> blankReviews = reviews.Where(r => r.sentiment == Review.Sentiment.blank).ToList();
+            int res = negReviews.Count + posReviews.Count;
+
+            //neg
+            int foldLengthNeg = (int)negReviews.Count / foldcount;
+            for (int i = 0; i < foldcount; i++)
             {
-                int foldMin = i * foldLength;
-                int foldMax = i * foldLength + foldLength;
-                folds.Add(new List<Review>(reviews.GetRange(foldMin, foldMax)));
+                int foldIndex = i * foldLengthNeg;
+                folds.Add(new List<Review>(negReviews.Skip(foldIndex).Take(foldLengthNeg)));
             }
-            return new List<List<Review>>();
+
+            //pos
+            int foldLengthPos = (int)posReviews.Count / foldcount;
+            for (int i = 0; i < foldcount; i++)
+            {
+                int foldIndex = i * foldLengthPos;
+                folds[i].AddRange(posReviews.Skip(foldIndex).Take(foldLengthPos));
+            }
+            return folds;
         }
 
 
+        private double AnalyseUsingTestData(string testBrainJSON, List<Review> foldBeingTested)
+        {
+            SentimentModel testBrain = new SentimentModel(testBrainJSON);
+            //SentimentModel testBrain = new SentimentModel(File.ReadAllText("brain.json"));
+            List<Review> originalFold = new List<Review>();
+            foreach (Review review in foldBeingTested)
+            {
+                originalFold.Add((Review)review.Clone());
+            }
 
+            for (int i = 0; i < foldBeingTested.Count; i++)
+            {
+                foldBeingTested[i].sentiment = Review.Sentiment.blank;
+            }
+
+            for (int i = 0; i < foldBeingTested.Count; i++)
+            {
+                foldBeingTested[i] = testBrain.AnalyseReview(foldBeingTested[i]);
+            }
+
+            int accuracy = 0;
+
+            for (int i = 0; i < foldBeingTested.Count; i++)
+            {
+                if (foldBeingTested[i].sentiment == originalFold[i].sentiment)
+                {
+                    accuracy++;
+                }
+                else
+                {
+                    
+                }
+            }
+            return (accuracy/(double)foldBeingTested.Count)*100;
+        }
     }
 }

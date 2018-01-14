@@ -25,6 +25,8 @@ namespace NetworksAssignment
                 Console.WriteLine("1: Train from file");
                 Console.WriteLine("2: Analyse file");
                 Console.WriteLine("3: Find communities");
+                Console.WriteLine("4: Make predictions");
+                Console.WriteLine("5: Perform crossvalidation");
                 Console.WriteLine("0: Exit");
 
                 string answer = Console.ReadLine();
@@ -57,7 +59,7 @@ namespace NetworksAssignment
                     case "5":
                         Console.WriteLine("Performing crossvalidation");
                         CrossValidation cv = new CrossValidation();
-
+                        cv.CrossValidate(10);
                         Console.WriteLine("Done!");
                         break;
                     default:

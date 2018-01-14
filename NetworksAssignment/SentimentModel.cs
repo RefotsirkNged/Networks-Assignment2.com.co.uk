@@ -20,7 +20,23 @@ namespace NetworksAssignment
             public int negWords;
             public int posWords;
 
-            internal double GetNegProbabililty(string token)
+            public double ProbPosDoc
+            {
+                get
+                {
+                    return (double)amountPOSReviews / (double)(amountPOSReviews + amountNEGReviews);
+                }
+            }
+
+            public double ProbNegDoc
+            {
+                get
+                {
+                    return (double)amountNEGReviews / (double)(amountPOSReviews + amountNEGReviews);
+                }
+            }
+
+            internal double GetNegProbability(string token)
             {
                 double result = (tokens.ContainsKey(token) ? tokens[token].probabilityNEG : 1);
                 return result;
@@ -103,6 +119,22 @@ namespace NetworksAssignment
             public int amountPOSReviews;
             public int negWords;
             public int posWords;
+
+            public double ProbPosDoc
+            {
+                get
+                {
+                    return (double) amountPOSReviews / (double)(amountPOSReviews + amountNEGReviews);
+                }
+            }
+
+            public double ProbNegDoc
+            {
+                get
+                {
+                    return (double)amountNEGReviews / (double)(amountPOSReviews + amountNEGReviews);
+                }
+            }
 
             private double SOfEmptyPOS
             {
@@ -246,12 +278,18 @@ namespace NetworksAssignment
 
             foreach (string token in review.tokens)
             {
-                probabilityNeg = probabilityNeg * (sVocabulary.GetNegProbabililty(token) / (1 - sVocabulary.GetNegProbabililty(token)));
-                probabilityPos = probabilityPos * (sVocabulary.GetPosProbability(token) / (1 - sVocabulary.GetPosProbability(token)));
+                //probabilityNeg = probabilityNeg * (sVocabulary.GetNegProbabililty(token) / (1 - sVocabulary.GetNegProbabililty(token)));
+                //probabilityPos = probabilityPos * (sVocabulary.GetPosProbability(token) / (1 - sVocabulary.GetPosProbability(token)));
+
+                probabilityNeg *= sVocabulary.GetNegProbability(token) / sVocabulary.ProbNegDoc;
+                probabilityPos *= sVocabulary.GetPosProbability(token) / sVocabulary.ProbPosDoc;
             }
 
-            probabilityNeg = probabilityNeg * sVocabulary.SOfEmptyNEG;
-            probabilityPos = probabilityPos * sVocabulary.SOfEmptyPOS;
+            //probabilityNeg = probabilityNeg * sVocabulary.SOfEmptyNEG;
+            //probabilityPos = probabilityPos * sVocabulary.SOfEmptyPOS;
+
+            probabilityNeg = probabilityNeg * sVocabulary.ProbNegDoc;
+            probabilityPos = probabilityPos * sVocabulary.ProbPosDoc;
 
             if (probabilityPos > probabilityNeg)
             {

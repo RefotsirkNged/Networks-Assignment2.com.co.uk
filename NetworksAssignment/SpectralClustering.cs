@@ -63,22 +63,6 @@ namespace NetworksAssignment
             unnormalizedlaplace = DegreeArray - AdjacencyArray;
             results.AddRange(FindCommunitiesHelper(unnormalizedlaplace));
 
-            //foreach (List<int> community in intialCommunities)
-            //{
-            //    Dictionary<int, List<int>> communityFriendships = new Dictionary<int, List<int>>();
-
-            //    foreach (int user in community)
-            //    {
-            //        communityFriendships.Add(user, friendships[user]);
-            //    }
-
-            //    AdjacencyArray = DenseMatrix.OfArray(mg.GetAdjancencyMatrix(communityFriendships));
-            //    DegreeArray = DenseMatrix.OfArray(mg.GetDegreeMatrix(communityFriendships));
-            //    unnormalizedlaplace = DegreeArray - AdjacencyArray;
-            //    FindCommunitiesHelper(unnormalizedlaplace);
-            //    //results.AddRange();
-            //}
-
             return results;
         }
 
